@@ -2,17 +2,17 @@
  * Builds the DLL for development electron renderer process
  */
 
-import webpack from 'webpack';
-import path from 'path';
-import { merge } from 'webpack-merge';
-import baseConfig from './webpack.config.base';
-import webpackPaths from './webpack.paths';
-import { dependencies } from '../../package.json';
-import checkNodeEnv from '../scripts/check-node-env';
+import webpack from 'webpack'
+import path from 'path'
+import { merge } from 'webpack-merge'
+import baseConfig from './webpack.config.base'
+import webpackPaths from './webpack.paths'
+import { dependencies } from '../../package.json'
+import checkNodeEnv from '../scripts/check-node-env'
 
-checkNodeEnv('development');
+checkNodeEnv('development')
 
-const dist = webpackPaths.dllPath;
+const dist = webpackPaths.dllPath
 
 const configuration: webpack.Configuration = {
   context: webpackPaths.rootPath,
@@ -23,7 +23,7 @@ const configuration: webpack.Configuration = {
 
   target: 'electron-renderer',
 
-  externals: ['fsevents', 'crypto-browserify'],
+  externals: [ 'fsevents', 'crypto-browserify' ],
 
   /**
    * Use `module` from `webpack.config.renderer.dev.js`
@@ -72,6 +72,6 @@ const configuration: webpack.Configuration = {
       },
     }),
   ],
-};
+}
 
-export default merge(baseConfig, configuration);
+export default merge(baseConfig, configuration)

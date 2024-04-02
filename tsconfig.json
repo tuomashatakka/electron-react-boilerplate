@@ -1,4 +1,5 @@
 {
+  "esModuleInterop": true,
   "compilerOptions": {
     "incremental": true,
     "target": "es2022",
@@ -12,7 +13,7 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "allowJs": true,
-    "outDir": ".erb/dll"
+    "outDir": ".erb/dll",
   },
   "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
 }

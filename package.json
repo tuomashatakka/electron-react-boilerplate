@@ -1,38 +1,30 @@
 {
-  "description": "A foundation for scalable desktop apps",
+  "main": "./src/main/main.ts",
+  "description": "Custom chat bot interface for ollama",
   "keywords": [
-    "electron",
-    "boilerplate",
-    "react",
-    "typescript",
-    "ts",
-    "sass",
-    "webpack",
-    "hot",
-    "reload"
+    "ai",
+    "gpt",
+    "chatbot",
+    "llama",
+    "ollama"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
-  "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
   },
   "license": "MIT",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "Tuomas Hatakka",
+    "email": "tuomas.hatakka@gmail.com",
+    "url": "https://github.com/tuomashatakka"
   },
   "contributors": [
     {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
+      "name": "Tuomas Hatakka",
+      "email": "tuomas.hatakka@gmail.com",
+      "url": "https://github.com/tuomashatakka"
     }
   ],
-  "main": "./src/main/main.ts",
   "scripts": {
     "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
     "build:dll": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.ts",
@@ -40,6 +32,7 @@
     "build:renderer": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.prod.ts",
     "postinstall": "ts-node .erb/scripts/check-native-dep.js && electron-builder install-app-deps && npm run build:dll",
     "lint": "cross-env NODE_ENV=development eslint . --ext .js,.jsx,.ts,.tsx",
+    "fix-linter-problems": "cross-env NODE_ENV=development eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "package": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --publish never && npm run build:dll",
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir release/app",
     "start": "ts-node ./.erb/scripts/check-port-in-use.js && npm run start:renderer",
@@ -96,9 +89,9 @@
     }
   },
   "dependencies": {
-    "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
+    "ollama": "^0.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0"
@@ -107,6 +100,9 @@
     "@electron/notarize": "^2.1.0",
     "@electron/rebuild": "^3.3.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
+    "@stylistic/eslint-plugin": "^1.7.0",
+    "@stylistic/eslint-plugin-jsx": "^1.7.0",
+    "@stylistic/eslint-plugin-ts": "^1.7.0",
     "@svgr/webpack": "^8.1.0",
     "@teamsupercell/typings-for-css-modules-loader": "^2.5.2",
     "@testing-library/jest-dom": "^6.1.3",
@@ -130,11 +126,12 @@
     "detect-port": "^1.5.1",
     "electron": "^26.2.1",
     "electron-builder": "^24.6.4",
+    "electron-debug": "^3.2.0",
     "electron-devtools-installer": "^3.2.0",
     "electronmon": "^2.0.2",
     "eslint": "^8.49.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-erb": "^4.1.0-0",
+    "eslint-config-erb": "^4.1.0",
     "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-import-resolver-webpack": "^0.13.7",
     "eslint-plugin-compat": "^4.2.0",
@@ -151,12 +148,15 @@
     "jest-environment-jsdom": "^29.7.0",
     "mini-css-extract-plugin": "^2.7.6",
     "prettier": "^3.0.3",
+    "prettier-eslint": "^16.3.0",
     "react-refresh": "^0.14.0",
     "react-test-renderer": "^18.2.0",
     "rimraf": "^5.0.1",
     "sass": "^1.67.0",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
+    "stylus": "^0.63.0",
+    "stylus-loader": "^8.1.0",
     "terser-webpack-plugin": "^5.3.9",
     "ts-jest": "^29.1.1",
     "ts-loader": "^9.4.4",
@@ -233,9 +233,6 @@
       "owner": "electron-react-boilerplate",
       "repo": "electron-react-boilerplate"
     }
-  },
-  "collective": {
-    "url": "https://opencollective.com/electron-react-boilerplate-594"
   },
   "devEngines": {
     "node": ">=14.x",

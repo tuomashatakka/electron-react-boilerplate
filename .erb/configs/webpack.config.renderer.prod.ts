@@ -2,30 +2,30 @@
  * Build config for electron renderer process
  */
 
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import { merge } from 'webpack-merge';
-import TerserPlugin from 'terser-webpack-plugin';
-import baseConfig from './webpack.config.base';
-import webpackPaths from './webpack.paths';
-import checkNodeEnv from '../scripts/check-node-env';
-import deleteSourceMaps from '../scripts/delete-source-maps';
+import path from 'path'
+import webpack from 'webpack'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+import { merge } from 'webpack-merge'
+import TerserPlugin from 'terser-webpack-plugin'
+import baseConfig from './webpack.config.base'
+import webpackPaths from './webpack.paths'
+import checkNodeEnv from '../scripts/check-node-env'
+import deleteSourceMaps from '../scripts/delete-source-maps'
 
-checkNodeEnv('production');
-deleteSourceMaps();
+checkNodeEnv('production')
+deleteSourceMaps()
 
 const configuration: webpack.Configuration = {
   devtool: 'source-map',
 
   mode: 'production',
 
-  target: ['web', 'electron-renderer'],
+  target: [ 'web', 'electron-renderer' ],
 
-  entry: [path.join(webpackPaths.srcRendererPath, 'index.tsx')],
+  entry: [ path.join(webpackPaths.srcRendererPath, 'index.tsx') ],
 
   output: {
     path: webpackPaths.distRendererPath,
@@ -56,7 +56,7 @@ const configuration: webpack.Configuration = {
       },
       {
         test: /\.s?(a|c)ss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' ],
         exclude: /\.module\.s?(c|a)ss$/,
       },
       // Fonts
@@ -93,10 +93,11 @@ const configuration: webpack.Configuration = {
 
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+    minimizer: [ new TerserPlugin(), new CssMinimizerPlugin() ],
   },
 
   plugins: [
+
     /**
      * Create global constants which can be configured at compile time.
      *
@@ -136,6 +137,6 @@ const configuration: webpack.Configuration = {
       'process.type': '"renderer"',
     }),
   ],
-};
+}
 
-export default merge(baseConfig, configuration);
+export default merge(baseConfig, configuration)
